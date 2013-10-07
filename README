@@ -1,0 +1,49 @@
+PythonWar
+=========
+
+A simple War card game simulator in Python. While many would consider War to be a zero-player game, this is not entirely true. When a battle or war occurs, the winning player may choose in which order to place their newly acquired cards at the bottom of their deck. This simulator examines the differences in win rates and play statistics between different card sorting "strategies".
+
+So, to clarify: The difference between each playing style is how they sort the cards the pick up by winning a battle/war. The different available strategies in this simulator are:
+0 - Sorting ascending. This places the lowest valued card highest in your deck, so that as play continues, the lowest valued card will eventually be played first.
+1 - Sorting descending. This places the highest valued card highest in your deck, so that as play continues, the highest valued card will eventually be played first.
+2 - Own cards first. This maintains the "play order" of the cards, but every time the player wins cards, places their cards into their deck before their opponents'.
+3 - Opponents' cards first. Again maintains the "play order" of the cards, but places the opponents' cards first.
+4 - Random shuffle. This randomly orders the acquired cards as you place them beneath your deck.
+
+
+
+Results:
+=========
+So, to the win rates.
+In every case, clear best strategy is random shuffling (4). It enjoyed the following win rates:
+4 vs. 0: 57.5% win rate.
+4 vs. 1: 78.1% win rate.
+4 vs. 2: 63.1% win rate.
+4 vs. 3: 56.5% win rate.
+
+While some of these win rates may not seem enormous, consider that they are about the difference in win rates between sports teams. In this case, random shuffling (4) is sort of akin to the Boston Redsox, and sorting descending (1) is sort of like the Houston Astros. (This analogy applies primarily to the year 2013)
+
+There is another interesting theme with these results. Notice that sorting descending (1) and own cards first (2) did much worse than sorting ascending (0) and opponents' cards first (3). Note that those two pairs represent remarkably similar strategies. Consider what happens during a turn when a war does not occur: each player plays one card, and the winning players takes both. If the player is sorting descending (1), they will place the highest card first, which happens to be their own. So, with the exception of wars, this is the same style as own cards first (2). Similarly, opponents' cards first (3) and sorting ascending (0) are the same strategy outside of wars.
+
+Wars, though, are different. After a war, the sorting strategies (0,1) sort the cards claimed by war, where as the non-sorting strategies (2,3) do not. This means when playing against a randomly shuffling (4) opponent, they preserve some of that randomness in their own deck, which is clearly a key to success. Though, for the sorting descending / own cards first battles, the non-sorting holds on to a solid lead.
+3 vs. 0: 52.5% win rate
+2 vs. 1: 62.5% win rate
+
+Now, when you match up strategies that are sort of "opposites" (as in (0) vs. (1), (2) vs. (3), or even (0) vs. (2)), you get something truly bizarre. You get infinite games.
+
+That's right, when players are using opposite strategies, you regularly find yourself playing infinite games of War. How regularly? Well, let's examine that:
+0 vs. 1: 3.0% of games. (0 wins 77.6% of finite games)
+0 vs. 2: 14.7% of games. (0 wins 67.7% of finite games)
+1 vs. 3: 16.3% of games. (1 wins 69.7% of finite games)
+2 vs. 3: 58.0% of games. (2 wins 73.4% of finite games)
+
+Holy cow! What's going on in (2) vs. (3) to make infinite games happen nearly 60% of the time?! Well, it's actually a clear example of what causes these infinite games. In the (2) vs. (3) matchup, both players are putting (2)'s cards first in their deck. Every time. This means that it's very easy to get caught in a more or less perpetual loop, where the order of the decks isn't changing very much at all.
+
+So, I guess the take aways of this are:
+1. If you have to play War for your life, don't. But if you REALLY have to, your best bet is to randomly shuffle, and hope the other player sorts descending. Then you'll be pretty well off.
+2. If you want to play a game against a friend, for the love of god don't mix strategies (2) and (3). You will be playing for a long while.
+
+
+Final notes:
+1. As for sample size, I ran tests of 1000 games in each case where numbers are shown. In the examinations of infinite games, an infinite game was outside the tally, so for the 2 vs 3 matchup, it actually played ~2300 games.
+2. As for infinite games, I used a sort of arbitrary cut off point of 50,000 turns to determine that a game was going to be infinite. Average length games tend to be 1,000-4,000 turns, depending on the strategy, and the longest finite game I encountered was 20,000 turns, in the (2) vs. (3) matchup. As evidence that they're truly infinite, my initial version of this code did not include that cut off, and when I reached one, the code would continue working on that one game for a minute or so before I quit it. I haven't calculated how many turns that probably ran, but a lot is a fair guess.
